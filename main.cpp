@@ -28,11 +28,14 @@ class ContaBancaria {
         numero(numero), titular(titular), saldo(saldo){};
         //Métodos públicos
         void depositar(double valor){
-            //depositar valor na conta
+            saldo += valor;
         }
         void sacar(double valor){
-            //sacar valor na conta
-            //verifique se há saldo suficiente
+            if(saldo >= valor){
+                saldo -= valor;
+            }else{
+                std::cout << "Saldo insuficiente." << std::endl;
+            }
         }
         //Sobrecarga do método Transferir
             void transferir(double valor, ContaBancaria &destino){
@@ -44,38 +47,30 @@ class ContaBancaria {
                 //verifique se há saldo suficiente
             }
         void exibirSaldo(){
-            std::cout << "Titular: " << titular.getNome() << std::endl;
-            std::cout << "Numero: << std::endl;
-            std::cout << std::endl;
+            std::cout << "Saldo atual da conta " << numero << ": " << saldo << std::endl;
         }
         void exibirInformacoes(){
-
+            std::cout << "Titular: " << titular.getNome() << ", CPF: " << titular.getCpf() << std::endl;
+            std::cout << "Numero da Conta: " << numero << ", Saldo: R$ " << saldo << std::endl;
         }
 };
 
 int main() {
-    std::cout << "Iniciando..." << std::endl;
 
     // Criação dos clientes
     Cliente cliente1("Ana", "111.111.111-11");
     Cliente cliente2("Bruno", "222.222.222-22");
     Cliente cliente3("Carla", "333.333.333-33");
 
-    //para fins de teste
-    std::cout << cliente1.getNome() << " - " << cliente1.getCpf() << std::endl;
-    std::cout << cliente2.getNome() << " - " << cliente2.getCpf() << std::endl;
-    std::cout << cliente3.getNome() << " - " << cliente3.getCpf() << std::endl;
-
     // Criação das contas bancárias com saldos iniciais
     ContaBancaria conta1(1001, cliente1, 1000.0);
     ContaBancaria conta2(1002, cliente2);
     ContaBancaria conta3(1003, cliente3);
 
-    //para fins de teste
-    std::cout << c1.getNome() << " - " << cliente1.getCpf() << std::endl;
-
     // Exibe o saldo inicial da conta de Ana
-    /*conta1.exibirSaldo();*/
+    conta1.exibirSaldo();
+
+
 
     // Ana transfere R$200 para Bruno
     /*conta1.transferir(200.0, conta2);*/
