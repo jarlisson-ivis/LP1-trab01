@@ -27,6 +27,9 @@ class ContaBancaria {
         ContaBancaria(int numero, Cliente titular, double saldo = 0) : 
         numero(numero), titular(titular), saldo(saldo){};
         //Métodos públicos
+        int getNum(){
+            return numero;
+        }
         void depositar(double valor){
             saldo += valor;
         }
@@ -39,12 +42,23 @@ class ContaBancaria {
         }
         //Sobrecarga do método Transferir
             void transferir(double valor, ContaBancaria &destino){
-                //transferir para outra conta
-                //verifique se há saldo suficiente
+                if(saldo >= valor){
+                    saldo -= valor;
+                    destino.depositar(valor);
+                    std::cout << "Transferido: R$ " << valor << " da conta " << numero << " para a conta " << destino.getNum() << std::endl;
+                }else{
+                    std::cout << "Saldo insuficiente." << std::endl;
+                }
             }
             void transferir(double valor, ContaBancaria &destino1, ContaBancaria &destino2){
-                //transferir e dividir igualmente entre duas contas
-                //verifique se há saldo suficiente
+                if(saldo >= valor){
+                    saldo -= valor;
+                    destino1.depositar(valor/2);
+                    destino2.depositar(valor/2);
+                    std::cout << "Transferido: R$ " << valor << " para cada conta (" << destino1.getNum() << " e " << destino2.getNum() << ")" << " da conta " << numero << std::endl;
+                }else{
+                    std::cout << "Saldo insuficiente." << std::endl;
+                }
             }
         void exibirSaldo(){
             std::cout << "Saldo atual da conta " << numero << ": " << saldo << std::endl;
@@ -56,7 +70,6 @@ class ContaBancaria {
 };
 
 int main() {
-
     // Criação dos clientes
     Cliente cliente1("Ana", "111.111.111-11");
     Cliente cliente2("Bruno", "222.222.222-22");
@@ -70,19 +83,17 @@ int main() {
     // Exibe o saldo inicial da conta de Ana
     conta1.exibirSaldo();
 
-
-
     // Ana transfere R$200 para Bruno
-    /*conta1.transferir(200.0, conta2);*/
+    conta1.transferir(200.0, conta2);
 
     // Ana transfere R$300 divididos entre Bruno e Carla
-    /*conta1.transferir(300.0, conta2, conta3);*/
+    conta1.transferir(300.0, conta2, conta3);
 
     // Exibição dos saldos finais
-    /*cout << endl;
+    cout << endl;
     conta1.exibirInformacoes();
     conta2.exibirInformacoes();
-    conta3.exibirInformacoes();*/
+    conta3.exibirInformacoes();
 
     return 0;
 }
