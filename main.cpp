@@ -3,6 +3,7 @@
 using namespace std;
 
 class Cliente {
+    //Atributos privados
     private:
         std::string nome;
         std::string cpf;
@@ -17,6 +18,7 @@ class Cliente {
 };
 
 class ContaBancaria {
+    //Atributos privados
     private:
         int numero;
         double saldo;
@@ -34,7 +36,7 @@ class ContaBancaria {
             saldo += valor;
         }
         void sacar(double valor){
-            if(saldo >= valor){
+            if(saldo >= valor){ //Verificação
                 saldo -= valor;
             }else{
                 std::cout << "Saldo insuficiente." << std::endl;
@@ -42,7 +44,7 @@ class ContaBancaria {
         }
         //Sobrecarga do método Transferir
             void transferir(double valor, ContaBancaria &destino){
-                if(saldo >= valor){
+                if(saldo >= valor){ //Verificação
                     saldo -= valor;
                     destino.depositar(valor);
                     std::cout << "Transferido: R$ " << valor << " da conta " << numero << " para a conta " << destino.getNum() << std::endl;
@@ -50,8 +52,9 @@ class ContaBancaria {
                     std::cout << "Saldo insuficiente." << std::endl;
                 }
             }
+            //Transferir com 2 destinos
             void transferir(double valor, ContaBancaria &destino1, ContaBancaria &destino2){
-                if(saldo >= valor){
+                if(saldo >= valor){ //Verificação
                     saldo -= valor;
                     destino1.depositar(valor/2);
                     destino2.depositar(valor/2);
